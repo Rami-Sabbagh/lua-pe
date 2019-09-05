@@ -76,6 +76,7 @@ function dosHeader:parse(parseContent)
     else
         self.file:seek(58) --Skip the header content
     end
+
     self.e_lfanew = self.file:readLong()
 
     return self
