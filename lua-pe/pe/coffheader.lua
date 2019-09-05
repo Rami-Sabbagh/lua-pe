@@ -13,7 +13,7 @@ local class = require(path.."middleclass")
 local bit = require("bit") --Use luajit bitop library for bitwise operations
 
 --==Localize libraries functions==--
-local rshift, band = bit.rshift, bit.lshift, bit.band
+local rshift, band = bit.rshift, bit.band
 
 --==COFF header class==--
 

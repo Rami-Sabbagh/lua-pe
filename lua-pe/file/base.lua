@@ -52,7 +52,7 @@ function base:readNumber(length)
     local num = 0 --The number we are reading
 
     for i=1,length do
-        num = num + lshift(byte(str,i),i*8)
+        num = num + lshift(byte(str,i),(i-1)*8)
     end
 
     return num
