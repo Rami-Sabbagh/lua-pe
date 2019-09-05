@@ -15,7 +15,7 @@ local base = require(path.."file.base")
 --==IO File wrapper class==--
 
 --Create the class
-local ioFile = class("lua-pe.File.Io", base)
+local ioFile = class("lua-pe.File.IO", base)
 
 --Initialize the instance
 function ioFile:initialize(file)

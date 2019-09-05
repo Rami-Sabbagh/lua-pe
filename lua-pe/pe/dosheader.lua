@@ -10,10 +10,10 @@ local path = string.sub((...),1,-string.len(".pe.dosheader"))
 --TODO: Support the usage of user's middleclass instance
 local class = require(path.."middleclass")
 
---==PE class==--
+--==COFF header class==--
 
 --Create the class
-local dosHeader = class("lua-pe.Pe.DosHeader")
+local dosHeader = class("lua-pe.Pe.DOSHeader")
 
 function dosHeader:initialize(file,parseDirectly,parseContent)
     self.file = file
@@ -25,7 +25,7 @@ function dosHeader:initialize(file,parseDirectly,parseContent)
     end
 end
 
---A new DOS header, for advance users.
+--A new DOS header, for advanced users.
 function dosHeader:new()
     self.signature = "\0\0" --char[2]
     self.lastsize = 0 --short
@@ -46,6 +46,8 @@ function dosHeader:new()
     self.oem_info = 0 --short
     self.reserved2 = {0,0,0,0,0,0,0,0,0,0} --short[10]
     self.e_lfanew = 0 --long
+
+    return self
 end
 
 --Parse the DOS header, if parseContent is true, then it's content is parsed, which is usually ignored.
