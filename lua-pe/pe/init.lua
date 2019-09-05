@@ -37,4 +37,13 @@ function pe:readDOSStub()
     return self
 end
 
+--Parse the PE header
+function pe:parsePEHeader()
+    if not self.dosHeader then error("The DOS header has to be parsed first! (without content)") end
+    self.file:seek(self.dosHeader.e_lfanew,"set") --Seek to the PE header
+    self.peHeader = self.file:read(4)
+    assert(self.peHeader == "PE\0\0","Invalid PE header: "..tostring(self.peHeader))
+    return self
+end
+
 return pe
