@@ -7,7 +7,7 @@ local path = string.sub((...),1,-string.len(".file.base"))
 
 --Middleclass library, for OO programming
 --TODO: Support the usage of user's middleclass instance
---TODO: Support other bitwise libraries, and Lua 5.2 native bitwise operators support
+--TODO: Support other bitwise libraries, and Lua 5.3 native bitwise operators support
 local class = require(path.."middleclass")
 local bit = require("bit") --Use luajit bitop library for bitwise operations
 
