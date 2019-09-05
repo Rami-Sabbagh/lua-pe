@@ -71,4 +71,29 @@ function base:writeNumber(length, num)
     return self --Allow nested calls
 end
 
+--Read a short number (2 bytes long).
+function base:readShort() return self:readNumber(2) end
+
+--Write a short number (2 bytes long).
+function base:writeShort(num) return self:writeNumber(2, num) end
+
+--Read an array of short numbers (2 bytes long).
+function base:readShortArray(count)
+    local array = {}
+    for i=1, count do array[i] = self:readShort() end
+    return array
+end
+
+--Write an array of short numbers (2 bytes long).
+function base:writeShortArray(array)
+    for i=1, #array do self:writeShort(array[i]) end
+    return self
+end
+
+--Read a long number (4 bytes long).
+function base:readLong() return self:readNumber(4) end
+
+--Write a long number (4 bytes long).
+function base:writeLong(num) return self:writeNumber(4, num) end
+
 return base --Provide the base class
