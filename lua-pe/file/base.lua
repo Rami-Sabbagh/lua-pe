@@ -20,13 +20,31 @@ local rshift, lshift, band = bit.rshift, bit.lshift, bit.band
 --Create the class
 local base = class("lua-pe.File.Base")
 
-function base:initialize() end
+--==Backend dependant methods==--
+
+--Must be overriden by sub-classes
+function base:initialize(file)
+    self.file = file --The original non-universal file object
+end
 
 --Read an amount of bytes from the file (defaults to 1), must be overidden by sub-classes
 function base:read(length) return string.rep("\0",length or 1) end
 
 --Write some data into the file (only a string is supported), must be overridden by sub-classes
 function base:write(data) return self end
+
+--Sets current position in file relative to p ("set" start of file [default], "cur" current, "end" end of file)
+--adding offset, [default: zero]. Returns new position in file.
+--Must be overridden by sub-classes
+function base:seek(offset, p) return 0 end
+
+--Flushes any buffered written data in the file to the disk, must be overridden by sub-classes
+function base:flush() return self end
+
+--Closes the file, must be overridden by sub-classes
+function base:close() return self end
+
+--==Backend independent (shared) methods==--
 
 --Read a number in little-endian format, length is measured in bytes
 function base:readNumber(length)
@@ -53,4 +71,4 @@ function base:writeNumber(length, num)
     return self --Allow nested calls
 end
 
-return base
+return base --Provide the base class
