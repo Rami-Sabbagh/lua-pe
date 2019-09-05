@@ -26,6 +26,15 @@ end
 --Parse the DOS header
 function pe:parseDOSHeader(parseContent)
     self.dosHeader = dosHeader(self.file,true,parseContent)
+    return self
+end
+
+--Read the DOS stub, who wants that ?
+function pe:readDOSStub()
+    if not self.dosHeader then error("The DOS header has to be parsed first! (without content)") end
+    self.file:seek(64,"set") --Seek to the end of DOS header
+    self.dosStub = self.file:read(self.dosHeader.e_lfanew-64-1) --Read all the data between the DOS header and the PE header
+    return self
 end
 
 return pe
