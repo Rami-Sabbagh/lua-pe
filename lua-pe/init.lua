@@ -9,3 +9,16 @@ local wrapFile = require(path.."file")
 
 --The PE class, the core of this library
 local pe = require(path.."pe")
+
+--The library API
+local luaPE = {}
+
+--==Advanced users methods==--
+
+--Give a new PE instance with nothing parsed.
+function luaPE.newPE(file)
+    local wrappedFile = wrapFile(file)
+    return pe(wrappedFile)
+end
+
+return luaPE --Provide the library's API
