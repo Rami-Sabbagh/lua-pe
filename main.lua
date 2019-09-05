@@ -9,7 +9,7 @@ print("Source Directory:", sourceDirectory)
 local luaPE = require("lua-pe")
 
 --Open the .exe file which we want to change it's icon
-local executable = io.open(sourceDirectory.."/love.exe","rb+")
+local executable = assert(io.open(sourceDirectory.."/love.exe","rb+"))
 
 executable:close() --Close the file
 
