@@ -3,12 +3,12 @@
 --The path to the lua-pe module, ends with (.)
 local path = string.sub((...),1,-string.len(".file.base"))
 
---==Load Libraries==--
+--==Load libraries==--
 
 --Middleclass library, for OO programming
 --TODO: Support the usage of user's middleclass instance
---TODO: Support other bitwise libraries, and Lua 5.3 native bitwise operators support
 local class = require(path.."middleclass")
+--TODO: Support other bitwise libraries, and Lua 5.3 native bitwise operators support
 local bit = require("bit") --Use luajit bitop library for bitwise operations
 
 --==Localize libraries functions==--
@@ -30,10 +30,10 @@ end
 --Read an amount of bytes from the file (defaults to 1), must be overidden by sub-classes
 function base:read(length) return string.rep("\0",length or 1) end
 
---Write some data into the file (only a string is supported), must be overridden by sub-classes
+--Write some data into the file (only a single string is supported), must be overridden by sub-classes
 function base:write(data) return self end
 
---Sets current position in file relative to p ("set" start of file [default], "cur" current, "end" end of file)
+--Sets current position in file relative to p ("set" start of file, "cur" current [default], "end" end of file)
 --adding offset, [default: zero]. Returns new position in file.
 --Must be overridden by sub-classes
 function base:seek(offset, p) return 0 end
