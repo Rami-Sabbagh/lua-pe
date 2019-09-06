@@ -18,6 +18,7 @@ pe:parseDOSHeader(true) --Parse the DOS header
 pe:readDOSStub() --Read the DOS stub :P
 pe:parsePEHeader() --Parse the PE header
 pe:parseCOFFHeader() --Parse the COFF header
+pe:parsePEOptHeader() --Parse the PE optional (not really) header
 
 print("========================")
 print("= love.exe Parsed Info =")
@@ -29,6 +30,9 @@ print("Characteristics:",pe.coffHeader.Characteristics)
 for k,v in pairs(pe.coffHeader:getCharacteristicsFlags()) do
     print(" - "..k.." :",tostring(v))
 end
+
+print("Checksum:",pe.peOptHeader.Checksum)
+print("Number of RVAs and sizes:",pe.peOptHeader.NumberOfRvaAndSizes)
 
 executable:close() --Close the file
 

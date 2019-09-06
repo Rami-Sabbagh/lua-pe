@@ -11,7 +11,8 @@ local class = require(path.."middleclass")
 
 --==Load classes==--
 local dosHeader = require(path.."pe.dosheader")
-local coffHeader = require(path.."pe.coffHeader")
+local coffHeader = require(path.."pe.coffheader")
+local peOptHeader = require(path.."pe.peoptheader")
 
 --==PE class==--
 
@@ -54,6 +55,13 @@ end
 function pe:parseCOFFHeader()
     if not self.peHeader then error("The PE header has to be parsed first!") end
     self.coffHeader = coffHeader(self.file, self.dosHeader, true)
+    return self
+end
+
+--Parse the PE optional (not really) header
+function pe:parsePEOptHeader()
+    if not self.coffHeader then error("The COFF header has to be parsed first!") end
+    self.peOptHeader = peOptHeader(self.file, self.dosHeader, self.coffHeader, true)
     return self
 end
 

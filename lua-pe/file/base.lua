@@ -96,4 +96,10 @@ function base:readLong() return self:readNumber(4) end
 --Write a long number (4 bytes long).
 function base:writeLong(num) return self:writeNumber(4, num) end
 
+--Read a long long number (8 bytes long).
+function base:readLongLong() return self:readNumber(8) end
+
+--Write a long lonf number (8 bytes long).
+function base:writeLongLong(num) return self:writeNumber(8, num) end
+
 return base --Provide the base class
