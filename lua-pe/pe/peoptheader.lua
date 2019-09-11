@@ -15,6 +15,25 @@ local class = require(path.."middleclass")
 --Create the class
 local peOptHeader = class("lua-pe.Pe.PEOptHeader")
 
+local directoriesNames = {
+    "Export Table",
+    "Import Table",
+    "Resource Table",
+    "Exception Table",
+    "Certificate Table",
+    "Base Relocation Table",
+    "Debug",
+    "Architecture",
+    "Global Ptr",
+    "TLS Table",
+    "Load Config Table",
+    "Bound Import",
+    "Import Address Table",
+    "Delay Import Descriptor",
+    "CLR Runtime Header",
+    "Reserved"
+}
+
 function peOptHeader:initialize(file,dosHeader,coffHeader,parseDirectly)
     self.file = file
     self.dosHeader = dosHeader
@@ -106,6 +125,7 @@ function peOptHeader:parse()
     self.DataDirectory = {}
     for i=1, self.NumberOfRvaAndSizes do
         self.DataDirectory[i] = {
+            Name = directoriesNames[i],
             VirtualAddress = self.file:readLong(),
             Size = self.file:readLong()
         }
