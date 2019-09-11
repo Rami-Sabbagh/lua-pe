@@ -19,20 +19,35 @@ pe:readDOSStub() --Read the DOS stub :P
 pe:parsePEHeader() --Parse the PE header
 pe:parseCOFFHeader() --Parse the COFF header
 pe:parsePEOptHeader() --Parse the PE optional (not really) header
+pe:parseSectionTable() --Parse the Section table
 
 print("========================")
 print("= love.exe Parsed Info =")
 print("========================")
 
-print("Machine:",pe.coffHeader:getMachineName())
+print("COFF Machine:",pe.coffHeader:getMachineName())
 
-print("Characteristics:",pe.coffHeader.Characteristics)
+print("COFF Characteristics:",pe.coffHeader.Characteristics)
 for k,v in pairs(pe.coffHeader:getCharacteristicsFlags()) do
     print(" - "..k.." :",tostring(v))
 end
 
-print("Checksum:",pe.peOptHeader.Checksum)
-print("Number of RVAs and sizes:",pe.peOptHeader.NumberOfRvaAndSizes)
+print("PEOpt Checksum:",pe.peOptHeader.Checksum)
+
+print("Directories:",pe.peOptHeader.NumberOfRvaAndSizes)
+for i=1, pe.peOptHeader.NumberOfRvaAndSizes do
+    print("=----------=[ "..pe.peOptHeader.DataDirectory[i].Name.." ]=----------=")
+    print("- VirtualAddress:"..pe.peOptHeader.DataDirectory[i].VirtualAddress)
+    print("- Size:"..pe.peOptHeader.DataDirectory[i].Size)
+end
+
+print("Sections:",#pe.sectionTable.sections)
+for i=1, #pe.sectionTable.sections do
+    print("=----------=[ "..pe.sectionTable.sections[i].Name.." ]=-----------=")
+    for k,v in pairs(pe.sectionTable.sections[i]) do
+        if k ~= "RawData" then print(" - "..k..": ", v) end
+    end
+end
 
 executable:close() --Close the file
 
