@@ -5,3 +5,4 @@ A lua library for parsing and patching PE files.
 - https://docs.microsoft.com/en-us/windows/win32/debug/pe-format
 - https://en.wikibooks.org/wiki/X86_Disassembly/Windows_Executable_Files
 - https://en.wikipedia.org/wiki/Portable_Executable
+- PE Checksum: https://stackoverflow.com/questions/6429779/can-anyone-define-the-windows-pe-checksum-algorithm
