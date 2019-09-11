@@ -10,7 +10,7 @@ local path = string.sub((...),1,-string.len(".pe.dosheader"))
 --TODO: Support the usage of user's middleclass instance
 local class = require(path.."middleclass")
 
---==COFF header class==--
+--==DOS header class==--
 
 --Create the class
 local dosHeader = class("lua-pe.Pe.DOSHeader")
