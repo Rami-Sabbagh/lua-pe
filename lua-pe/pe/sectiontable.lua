@@ -70,4 +70,16 @@ function sectionTable:parse()
     end
 end
 
+--Convert the relative virtual address to a file offset, returns 0 on failure.
+function sectionTable:convertRVA2Offset(RVA)
+    for i=1, self.coffHeader.NumberOfSections do
+        local section = self.sections[i]
+        if RVA > section.VirtualAddress and RVA < (section.VirtualAddress + section.VirtualSize) then
+            return section.PointerToRawData + section.VirtualAddress - RVA
+        end
+    end
+
+    return 0 --Failed
+end
+
 return sectionTable --Provide the class
