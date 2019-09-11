@@ -14,7 +14,7 @@ local dosHeader = require(path.."pe.dosheader")
 local coffHeader = require(path.."pe.coffheader")
 local peOptHeader = require(path.."pe.peoptheader")
 local sectionTable = require(path..".pe.sectiontable")
-local resources = require(path.."resources")
+local resources = require(path.."pe.resources")
 
 --==PE class==--
 
@@ -80,7 +80,7 @@ end
 function pe:hasResources()
     if not self.peOptHeader then error("The PE Optional header has to be parsed first!") end
     if not self.sectionTable then error("The Section Table has to be parsed first!") end
-    
+
     return self.peOptHeader[3].Size > 0
 end
 
