@@ -13,6 +13,7 @@ local class = require(path.."middleclass")
 local dosHeader = require(path.."pe.dosheader")
 local coffHeader = require(path.."pe.coffheader")
 local peOptHeader = require(path.."pe.peoptheader")
+local sectionTable = require(path..".pe.sectiontable")
 
 --==PE class==--
 
@@ -26,6 +27,8 @@ function pe:initialize(file)
     self.dosStub = nil --DOS Stub
     self.peHeader = nil --PE Header
     self.coffHeader = nil --COFF Header
+    self.peOptHeader = nil --PE Optional Header
+    self.sectionTable = nil --Section Table
 end
 
 --Parse the DOS header
@@ -62,6 +65,13 @@ end
 function pe:parsePEOptHeader()
     if not self.coffHeader then error("The COFF header has to be parsed first!") end
     self.peOptHeader = peOptHeader(self.file, self.dosHeader, self.coffHeader, true)
+    return self
+end
+
+--Parse the Section Table
+function pe:parseSectionTable()
+    if not self.coffHeader then error("The COFF header has to be parsed first!") end
+    self.sectionTable = sectionTable(self.file, self.dosHeader, self.coffHeader, true)
     return self
 end
 
