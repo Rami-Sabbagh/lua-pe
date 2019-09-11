@@ -45,7 +45,7 @@ print("Sections:",#pe.sectionTable.sections)
 for i=1, #pe.sectionTable.sections do
     print("=----------=[ "..pe.sectionTable.sections[i].Name.." ]=-----------=")
     for k,v in pairs(pe.sectionTable.sections[i]) do
-        if k ~= "RawData" then print(" - "..k..": ", v) end
+        print(" - "..k..": ", v)
     end
 end
 

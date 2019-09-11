@@ -68,15 +68,6 @@ function sectionTable:parse()
             RawData = ""
         }
     end
-
-    --Parse sections rawdata
-    for i=1, self.coffHeader.NumberOfSections do
-        print("DEBUG",self.sections[i].Name)
-        if self.sections[i].SizeOfRawData > 0 then
-            self.file:seek(self.sections[i].PointerToRawData, "set")
-            self.sections[i].RawData = self.file:read(self.sections[i].SizeOfRawData)
-        end
-    end
 end
 
 return sectionTable --Provide the class
