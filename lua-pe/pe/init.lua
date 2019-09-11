@@ -81,14 +81,14 @@ function pe:hasResources()
     if not self.peOptHeader then error("The PE Optional header has to be parsed first!") end
     if not self.sectionTable then error("The Section Table has to be parsed first!") end
 
-    return self.peOptHeader[3].Size > 0
+    return self.peOptHeader.DataDirectory[3].Size > 0
 end
 
 --Parse the Resources section if exists
 function pe:parseResources()
     if not self.peOptHeader then error("The PE Optional header has to be parsed first!") end
     if not self.sectionTable then error("The Section Table has to be parsed first!") end
-    if self.peOptHeader[3].Size == 0 then error("The resources section doesn't exist in this file!") end
+    if self.peOptHeader.DataDirectory[3].Size == 0 then error("The resources section doesn't exist in this file!") end
 
     self.resources = resources(self.file, self.peOptHeader, self.sectionTable, true)
     return self

@@ -74,7 +74,7 @@ end
 function sectionTable:convertRVA2Offset(RVA)
     for i=1, self.coffHeader.NumberOfSections do
         local section = self.sections[i]
-        if RVA > section.VirtualAddress and RVA < (section.VirtualAddress + section.VirtualSize) then
+        if RVA >= section.VirtualAddress and RVA < (section.VirtualAddress + section.VirtualSize) then
             return section.PointerToRawData + section.VirtualAddress - RVA
         end
     end
