@@ -20,6 +20,7 @@ pe:parsePEHeader() --Parse the PE header
 pe:parseCOFFHeader() --Parse the COFF header
 pe:parsePEOptHeader() --Parse the PE optional (not really) header
 pe:parseSectionTable() --Parse the Section table
+if pe:hasResources() then pe:parseResources() end --Parse the resource if they exist
 
 print("========================")
 print("= love.exe Parsed Info =")

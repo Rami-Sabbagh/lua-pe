@@ -14,6 +14,7 @@ local dosHeader = require(path.."pe.dosheader")
 local coffHeader = require(path.."pe.coffheader")
 local peOptHeader = require(path.."pe.peoptheader")
 local sectionTable = require(path..".pe.sectiontable")
+local resources = require(path.."resources")
 
 --==PE class==--
 
@@ -72,6 +73,24 @@ end
 function pe:parseSectionTable()
     if not self.coffHeader then error("The COFF header has to be parsed first!") end
     self.sectionTable = sectionTable(self.file, self.dosHeader, self.coffHeader, true)
+    return self
+end
+
+--Does this file have a resources section ?
+function pe:hasResources()
+    if not self.peOptHeader then error("The PE Optional header has to be parsed first!") end
+    if not self.sectionTable then error("The Section Table has to be parsed first!") end
+    
+    return self.peOptHeader[3].Size > 0
+end
+
+--Parse the Resources section if exists
+function pe:parseResources()
+    if not self.peOptHeader then error("The PE Optional header has to be parsed first!") end
+    if not self.sectionTable then error("The Section Table has to be parsed first!") end
+    if self.peOptHeader[3].Size == 0 then error("The resources section doesn't exist in this file!") end
+
+    self.resources = resources(self.file, self.peOptHeader, self.sectionTable, true)
     return self
 end
 
