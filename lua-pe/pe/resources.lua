@@ -52,6 +52,24 @@ end
 
 --Parse a directory table and return it
 function resources:_parseDirectoryTable()
+
+    local meta = {
+        Characteristics = self.file:readLong(),
+        TimeDateStamp = self.file:readLong(),
+        MajorVersion = self.file:readShort(),
+        MinorVersion = self.file:readShort(),
+        NumberOfNameEntries = self.file:readShort(),
+        NumberOfIDEntries = self.file:readShort(),
+
+        DataEntries = {},
+
+        
+    }
+
+    local directory = {
+
+    }
+
     local meta = {
         Characteristics = self.file:readLong(),
         TimeDateStamp = self.file:readLong(),
